@@ -9,6 +9,19 @@
 
 	<name>steel-util</name>
 
+    <distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>releases</name>
+			<url>http://10.15.201.22:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>snapshots</name>
+			<url>http://10.15.201.22:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
