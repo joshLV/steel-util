@@ -13,8 +13,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-import com.alibaba.fastjson.JSON;
-
 /**
  * 
  * @author log.yin
@@ -28,10 +26,10 @@ public class HttpClient {
      * @param requestBody
      * @return
      */
-    public static String post(String url, Object requestBody) {
+    public static String post(String url, String requestBody) {
         String responseStr = "";
         try {
-            StringEntity stringEntity = new StringEntity(JSON.toJSONString(requestBody));
+            StringEntity stringEntity = new StringEntity(requestBody);
             stringEntity.setContentType("application/json");
 
             HttpPost httpPost = new HttpPost(url);

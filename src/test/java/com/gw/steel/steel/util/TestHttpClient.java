@@ -5,9 +5,6 @@
  */
 package com.gw.steel.steel.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.gw.steel.steel.util.httpclient.HttpClient;
 
 /**
@@ -22,22 +19,9 @@ public class TestHttpClient {
      * @param args
      */
     public static void main(String[] args) {
-        Map<String, String> requestBody = new HashMap<String, String>();
-        requestBody.put("version", "1.0");
-        requestBody.put("inputCharset", "1");
-        requestBody.put("signType", "1");
-        requestBody.put("clientId", "1");
-        requestBody.put("xc_user_id", "aaaa");
-        requestBody.put("currentStep", "11");
-        requestBody.put("currentStepDesc", "步骤描述");
-        requestBody.put("mobile", "1525465654");
-        requestBody.put("userName", "gaowei");
-        requestBody.put("custName", "gaowei");
-        requestBody.put("operatorTime", "201411142215");
-        requestBody.put("OSN", "0001");
-        requestBody.put("signMsg", "signMsg");
 
         String url = "http://10.15.201.25:8883/xc-aas/accounts/postOpenAcctStep";
+        String requestBody = "{\"version\":\"1.0\",\"inputCharset\":\"1\",\"OSN\":\"0001\",\"signMsg\":\"1\"}";
         String resp = HttpClient.post(url, requestBody);
         System.out.println("response data: " + resp);
 
