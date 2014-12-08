@@ -22,6 +22,8 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 本接口调用方式为双向认证的https
@@ -29,9 +31,13 @@ import org.apache.http.util.EntityUtils;
  * @version $Id: HttpsClient.java, v 0.1 2014年11月26日 下午2:02:26 log.yin Exp $
  */
 public class HttpsClient {
+    private static final Logger logger = LoggerFactory.getLogger(HttpsClient.class);
 
     public static String post(String url, String truststorepath, String p12path, String passwd,
                               String requestBody) {
+        logger.info("url: {},  truststorepath: {},  p12path: {},  passwd: {}, requestBody: {}",
+            new String[] { url, truststorepath, p12path, passwd, requestBody });
+
         KeyStore trustStore = null;
         KeyStore keyStore = null;
         FileInputStream trustStoreFile = null;
@@ -70,15 +76,26 @@ public class HttpsClient {
                 responseStr = EntityUtils.toString(entity);
             }
         } catch (Exception e) {
+            logger.error("", e);
         } finally {
             try {
-                trustStoreFile.close();
-                keyStoreFile.close();
-
-                response.close();
-                httppost.releaseConnection();
-                httpclient.close();
+                if (keyStoreFile != null) {
+                    keyStoreFile.close();
+                }
+                if (trustStoreFile != null) {
+                    trustStoreFile.close();
+                }
+                if (response != null) {
+                    response.close();
+                }
+                if (httppost != null) {
+                    httppost.releaseConnection();
+                }
+                if (httpclient != null) {
+                    httpclient.close();
+                }
             } catch (IOException e) {
+                logger.error("", e);
             }
         }
         return responseStr;

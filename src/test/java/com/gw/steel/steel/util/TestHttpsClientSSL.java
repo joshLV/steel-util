@@ -7,7 +7,6 @@ package com.gw.steel.steel.util;
 
 import com.gw.steel.steel.util.httpclient.HttpsClient;
 
-
 /**
  * 
  * @author log.yin
@@ -20,6 +19,26 @@ public class TestHttpsClientSSL {
      * @param args
      */
     public static void main(String[] args) {
+        check();
+        
+        bind();
+    }
+
+    /**
+     * 
+     */
+    private static void check() {
+        String url = "http://10.15.89.77:9090/AccService/checkuser";
+        String truststorepath = "d:/tester.truststore";
+        String p12path = "d:/tester.p12";
+        String passwd = "123456";
+        String requestBody = "{\"uname\":\"测试\"}";
+        String result = HttpsClient.post(url, truststorepath, p12path, passwd, requestBody);
+        System.out.println("result: " + result);
+
+    }
+
+    private static void bind() {
         String url = "http://10.15.89.77:9090/AccService/xcscbind";
         String truststorepath = "d:/tester.truststore";
         String p12path = "d:/tester.p12";

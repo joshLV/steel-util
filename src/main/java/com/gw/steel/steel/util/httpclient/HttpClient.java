@@ -12,6 +12,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -19,14 +21,18 @@ import org.apache.http.util.EntityUtils;
  * @version $Id: HttpClient.java, v 0.1 2014年11月26日 上午10:16:00 log.yin Exp $
  */
 public class HttpClient {
+    private static final Logger logger = LoggerFactory.getLogger(HttpClient.class);
+
     /**
-     * post json request
-     * 
-     * @param url
-     * @param requestBody
-     * @return
-     */
+    * post json request
+    * 
+    * @param url
+    * @param requestBody
+    * @return
+    */
     public static String post(String url, String requestBody) {
+        logger.info("url: {},   requestBody: {}", new String[] { url, requestBody });
+
         String responseStr = "";
         try {
             StringEntity stringEntity = new StringEntity(requestBody);
