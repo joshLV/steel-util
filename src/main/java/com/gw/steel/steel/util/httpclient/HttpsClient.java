@@ -7,7 +7,6 @@ package com.gw.steel.steel.util.httpclient;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.security.KeyStore;
 
 import javax.net.ssl.SSLContext;
@@ -94,7 +93,7 @@ public class HttpsClient {
                 if (httpclient != null) {
                     httpclient.close();
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 logger.error("", e);
             }
         }

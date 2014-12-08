@@ -28,7 +28,7 @@ public class TestHttpsClientSSL {
      * 
      */
     private static void check() {
-        String url = "http://10.15.89.77:9090/AccService/checkuser";
+        String url = "https://10.15.108.5:8440/AccService-xc/checkuser";
         String truststorepath = "d:/tester.truststore";
         String p12path = "d:/tester.p12";
         String passwd = "123456";
@@ -39,12 +39,13 @@ public class TestHttpsClientSSL {
     }
 
     private static void bind() {
-        String url = "http://10.15.89.77:9090/AccService/xcscbind";
+        String url = "https://10.15.108.5:8440/AccService/xcscbind";
         String truststorepath = "d:/tester.truststore";
         String p12path = "d:/tester.p12";
         String passwd = "123456";
-        String requestBody = "{\"uname\":\"测试\",\"mobile\":\"15921866000\",\"xcid\":\"888888\",\"reqdata\":\"测试\"}";
+        String requestBody = "{\"uname\":\"测试\",\"mobile\":\"15921866000\",\"xcid\":\"888888\",\"truename\":\"老罗\", \"idcard\":\"436950321596315745\",\"opendate\":\"2014-11-26\",\"opentype\":\"1\",\"source\":\"1\"}";
         String result = HttpsClient.post(url, truststorepath, p12path, passwd, requestBody);
+        
         System.out.println("result: " + result);
 
     }
