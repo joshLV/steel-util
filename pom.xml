@@ -6,19 +6,18 @@
 	<artifactId>steel-util</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
 	<name>steel-util</name>
 
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
 			<name>releases</name>
-			<url>http://10.15.201.22:8081/nexus/content/repositories/releases/</url>
+			<url>http://10.15.108.55:8081/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>snapshots</name>
-			<url>http://10.15.201.22:8081/nexus/content/repositories/snapshots</url>
+			<url>http://10.15.108.55:8081/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -71,7 +70,6 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.3.4</version>
 		</dependency>
-
 	</dependencies>
 
 </project>
