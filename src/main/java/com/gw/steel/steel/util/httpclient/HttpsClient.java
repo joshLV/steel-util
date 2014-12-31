@@ -34,8 +34,7 @@ public class HttpsClient {
 
     public static String post(String url, String truststorepath, String p12path, String passwd,
                               String requestBody) {
-        logger.info("url: {},  truststorepath: {},  p12path: {},  passwd: {}, requestBody: {}",
-            new String[] { url, truststorepath, p12path, passwd, requestBody });
+        logger.info("url: {},  requestBody: {}", new String[] { url, requestBody });
 
         KeyStore trustStore = null;
         KeyStore keyStore = null;
