@@ -21,8 +21,6 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 本接口调用方式为双向认证的https
@@ -30,12 +28,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: HttpsClient.java, v 0.1 2014年11月26日 下午2:02:26 log.yin Exp $
  */
 public class HttpsClient {
-    private static final Logger logger = LoggerFactory.getLogger(HttpsClient.class);
-
     public static String post(String url, String truststorepath, String p12path, String passwd,
                               String requestBody) {
-        logger.info("url: {},  requestBody: {}", new String[] { url, requestBody });
-
         KeyStore trustStore = null;
         KeyStore keyStore = null;
         FileInputStream trustStoreFile = null;
@@ -74,7 +68,6 @@ public class HttpsClient {
                 responseStr = EntityUtils.toString(entity);
             }
         } catch (Exception e) {
-            logger.error("", e);
         } finally {
             try {
                 if (keyStoreFile != null) {
@@ -93,7 +86,6 @@ public class HttpsClient {
                     httpclient.close();
                 }
             } catch (Exception e) {
-                logger.error("", e);
             }
         }
         return responseStr;
