@@ -5,7 +5,6 @@
  */
 package com.gw.steel.steel.util;
 
-import com.gw.steel.steel.util.httpclient.HttpClient;
 
 /**
  * 
@@ -20,10 +19,10 @@ public class TestHttpClient {
      */
     public static void main(String[] args) {
 
-        String url = "http://10.15.201.25:8883/xc-aas/accounts/postOpenAcctStep";
+        /*String url = "http://10.15.201.25:8883/xc-aas/accounts/postOpenAcctStep";
         String requestBody = "{\"version\":\"1.0\",\"inputCharset\":\"1\",\"OSN\":\"0001\",\"signMsg\":\"1\"}";
         String resp = HttpClient.post(url, requestBody);
-        System.out.println("response data: " + resp);
+        System.out.println("response data: " + resp);*/
 
     }
 

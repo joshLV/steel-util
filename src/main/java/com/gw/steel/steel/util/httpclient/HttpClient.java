@@ -7,6 +7,7 @@ package com.gw.steel.steel.util.httpclient;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -46,6 +47,27 @@ public class HttpClient {
                 }
             }
         } catch (Exception e) {
+        }
+        return responseStr;
+    }
+    
+    public static String get(String url) {
+        String responseStr = "";
+        try {
+            HttpGet httpGet = new HttpGet(url);
+            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+            CloseableHttpResponse response = httpClient.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                try {
+                    responseStr = EntityUtils.toString(entity);
+                } finally {
+                    response.close();
+                    httpGet.releaseConnection();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return responseStr;
     }
