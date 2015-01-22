@@ -13,36 +13,24 @@ public class DateUtils {
 
     public final static String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    /**
-     * 使用预设格式提取字符串日期
-     * @param strDate 日期字符串
-     * @return
-     * @throws ParseException 
-     */
-    public static Date parse(String strDate) throws ParseException {
+    public static Date parse(String strDate) {
         return parse(strDate, DEFAULT_FORMAT);
     }
 
-    /**
-     * 使用用户格式提取字符串日期
-     * @param strDate 日期字符串
-     * @param pattern 日期格式
-     * @return
-     * @throws ParseException 
-     */
-    public static Date parse(String strDate, String pattern) throws ParseException {
+    public static Date parse(String strDate, String pattern) {
         SimpleDateFormat df = new SimpleDateFormat(pattern);
-        return df.parse(strDate);
+        try {
+            return df.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    /**
-     * 将字符串转换为指定格式的date
-     * 
-     * @param date
-     * @param pattern
-     * @return
-     * @throws ParseException
-     */
+    public static String format(Date date) {
+        return format(date, DEFAULT_FORMAT);
+    }
+
     public static String format(Date date, String pattern) {
         SimpleDateFormat df = new SimpleDateFormat(pattern);
         return df.format(date);
