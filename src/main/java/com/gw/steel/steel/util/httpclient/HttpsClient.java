@@ -29,7 +29,7 @@ import org.apache.http.util.EntityUtils;
  */
 public class HttpsClient {
     public static String post(String url, String truststorepath, String p12path, String passwd,
-                              String requestBody) {
+                              String requestBody) throws Exception {
         KeyStore trustStore = null;
         KeyStore keyStore = null;
         FileInputStream trustStoreFile = null;
@@ -67,7 +67,6 @@ public class HttpsClient {
             if (entity != null) {
                 responseStr = EntityUtils.toString(entity);
             }
-        } catch (Exception e) {
         } finally {
             try {
                 if (keyStoreFile != null) {

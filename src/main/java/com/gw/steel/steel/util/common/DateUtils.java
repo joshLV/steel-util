@@ -13,18 +13,13 @@ public class DateUtils {
 
     public final static String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    public static Date parse(String strDate) {
+    public static Date parse(String strDate) throws ParseException {
         return parse(strDate, DEFAULT_FORMAT);
     }
 
-    public static Date parse(String strDate, String pattern) {
+    public static Date parse(String strDate, String pattern) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat(pattern);
-        try {
-            return df.parse(strDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return df.parse(strDate);
     }
 
     public static String format(Date date) {

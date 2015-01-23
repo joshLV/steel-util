@@ -5,7 +5,10 @@
  */
 package com.gw.steel.steel.util.httpclient;
 
+import java.io.IOException;
+
 import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -22,52 +25,42 @@ import org.apache.http.util.EntityUtils;
 public class HttpClient {
     /**
     * post json request
-    * 
-    * @param url
-    * @param requestBody
-    * @return
     */
-    public static String post(String url, String requestBody) {
+    public static String post(String url, String requestBody) throws ClientProtocolException,
+                                                             IOException {
         String responseStr = "";
-        try {
-            StringEntity stringEntity = new StringEntity(requestBody);
-            stringEntity.setContentType("application/json");
+        StringEntity stringEntity = new StringEntity(requestBody);
+        stringEntity.setContentType("application/json");
 
-            HttpPost httpPost = new HttpPost(url);
-            httpPost.setEntity(stringEntity);
-            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-            CloseableHttpResponse response = httpClient.execute(httpPost);
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                try {
-                    responseStr = EntityUtils.toString(entity);
-                } finally {
-                    response.close();
-                    httpPost.releaseConnection();
-                }
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setEntity(stringEntity);
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        CloseableHttpResponse response = httpClient.execute(httpPost);
+        HttpEntity entity = response.getEntity();
+        if (entity != null) {
+            try {
+                responseStr = EntityUtils.toString(entity);
+            } finally {
+                response.close();
+                httpPost.releaseConnection();
             }
-        } catch (Exception e) {
         }
         return responseStr;
     }
-    
-    public static String get(String url) {
+
+    public static String get(String url) throws ClientProtocolException, IOException {
         String responseStr = "";
-        try {
-            HttpGet httpGet = new HttpGet(url);
-            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                try {
-                    responseStr = EntityUtils.toString(entity);
-                } finally {
-                    response.close();
-                    httpGet.releaseConnection();
-                }
+        HttpGet httpGet = new HttpGet(url);
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+        HttpEntity entity = response.getEntity();
+        if (entity != null) {
+            try {
+                responseStr = EntityUtils.toString(entity);
+            } finally {
+                response.close();
+                httpGet.releaseConnection();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return responseStr;
     }

@@ -7,6 +7,7 @@ package com.gw.steel.steel.util.httpclient;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,32 +26,30 @@ import org.apache.http.util.EntityUtils;
  * @version $Id: HttpSend.java, v 0.1 2014年12月26日 下午5:43:47 log.yin Exp $
  */
 public class HttpSend {
-    public static String sendGet(String uri) {
+    public static String sendGet(String uri) throws URISyntaxException, ClientProtocolException,
+                                            IOException {
         String response = "";
-        try {
-            HttpGet httpget = new HttpGet();
-            httpget.setURI(new URI(uri));
-            CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-            response = httpClient.execute(httpget, new ResponseHandler<String>() {
-                public String handleResponse(HttpResponse response) throws ClientProtocolException,
-                                                                   IOException {
-                    StatusLine statusLine = response.getStatusLine();
-                    final HttpEntity entity = response.getEntity();
-                    String body = null;
-                    if (200 == statusLine.getStatusCode()) {
-                        HttpEntity dealEntity = response.getEntity();
-                        body = EntityUtils.toString(dealEntity, "UTF-8");
-                        EntityUtils.consume(dealEntity);
-                    } else if (statusLine.getStatusCode() >= 300) {
-                        EntityUtils.consume(entity);
-                        throw new HttpResponseException(statusLine.getStatusCode(), statusLine
-                            .getReasonPhrase());
-                    }
-                    return body;
+        HttpGet httpget = new HttpGet();
+        httpget.setURI(new URI(uri));
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        response = httpClient.execute(httpget, new ResponseHandler<String>() {
+            public String handleResponse(HttpResponse response) throws ClientProtocolException,
+                                                               IOException {
+                StatusLine statusLine = response.getStatusLine();
+                final HttpEntity entity = response.getEntity();
+                String body = null;
+                if (200 == statusLine.getStatusCode()) {
+                    HttpEntity dealEntity = response.getEntity();
+                    body = EntityUtils.toString(dealEntity, "UTF-8");
+                    EntityUtils.consume(dealEntity);
+                } else if (statusLine.getStatusCode() >= 300) {
+                    EntityUtils.consume(entity);
+                    throw new HttpResponseException(statusLine.getStatusCode(), statusLine
+                        .getReasonPhrase());
                 }
-            });
-        } catch (Exception e) {
-        }
+                return body;
+            }
+        });
         return response;
     }
 }

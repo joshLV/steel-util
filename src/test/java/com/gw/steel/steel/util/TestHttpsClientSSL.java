@@ -17,17 +17,19 @@ public class TestHttpsClientSSL {
     /**
      * 
      * @param args
+     * @throws Exception 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         check();
-        
+
         bind();
     }
 
     /**
+     * @throws Exception 
      * 
      */
-    private static void check() {
+    private static void check() throws Exception {
         String url = "https://10.15.108.5:8440/AccService-xc/checkuser";
         String truststorepath = "d:/tester.truststore";
         String p12path = "d:/tester.p12";
@@ -38,14 +40,14 @@ public class TestHttpsClientSSL {
 
     }
 
-    private static void bind() {
+    private static void bind() throws Exception {
         String url = "https://10.15.108.5:8440/AccService/xcscbind";
         String truststorepath = "d:/tester.truststore";
         String p12path = "d:/tester.p12";
         String passwd = "123456";
         String requestBody = "{\"uname\":\"测试\",\"mobile\":\"15921866000\",\"xcid\":\"888888\",\"truename\":\"老罗\", \"idcard\":\"436950321596315745\",\"opendate\":\"2014-11-26\",\"opentype\":\"1\",\"source\":\"1\"}";
         String result = HttpsClient.post(url, truststorepath, p12path, passwd, requestBody);
-        
+
         System.out.println("result: " + result);
 
     }
