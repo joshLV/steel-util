@@ -11,7 +11,7 @@ public class StringUtil {
 		return mask(phoneNo, 4, 3);
 	}
 	
-	private static String mask(String source, Integer start, Integer end) {
+	public static String mask(String source, Integer start, Integer end) {
 		if (source == null) {
 			return "";
 		}
@@ -24,4 +24,9 @@ public class StringUtil {
 		return sourceSb.replace(start, length - end, maskSb.toString())
 				.toString();
 	}
+	
+	public static void main(String[] args) {
+        System.err.println(mask("123456789012345678", 6, 4));
+        System.err.println(mask("123456789012345", 6, 1));
+    }
 }
