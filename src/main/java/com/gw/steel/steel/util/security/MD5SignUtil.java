@@ -23,14 +23,11 @@ public final class MD5SignUtil {
     private static final Log logger = LogFactory.getLog(MD5SignUtil.class);
 
     public static String buildSignBody(Signaturable signaturable, String secretKey) {
-
         String signatureBody = buildParamSignatureBody(signaturable.getSignatureParmMap());
         StringBuffer buf = new StringBuffer(signatureBody);
-
         if (!StringUtils.isBlank(secretKey)) {
             appendSignParameter(buf, "key", secretKey, false);
         }
-
         return buf.toString();
     }
 
@@ -52,14 +49,13 @@ public final class MD5SignUtil {
     }
 
     public static String buildParamSignatureBody(LinkedHashMap<String, String> signatureParamMap) {
+        if (signatureParamMap == null) {
+            return null;
+        }
         StringBuffer sBuffer = new StringBuffer();
-        if (signatureParamMap != null) {
-            for (String key : signatureParamMap.keySet()) {
-                String paramValue = signatureParamMap.get(key);
-                appendSignParameter(sBuffer, key, paramValue);
-            }
-        } else {
-            return "";
+        for (String key : signatureParamMap.keySet()) {
+            String paramValue = signatureParamMap.get(key);
+            appendSignParameter(sBuffer, key, paramValue);
         }
         return sBuffer.toString();
     }
@@ -79,7 +75,7 @@ public final class MD5SignUtil {
     }
 
     /**
-     * 按键值对把参数key=value增加到buf对象中. 如果为空则不增加.
+     * 按键值对把参数key:value增加到buf对象中. 如果为空则不增加.
      * 
      */
     public static void appendSignParameter(final StringBuffer buf, final String key,
@@ -87,11 +83,10 @@ public final class MD5SignUtil {
                                            final boolean containEmptyStr) {
         if (!containEmptyStr && StringUtils.isBlank(value)) {
             return;
-        } else {
-            buf.append(key).append(":").append(null == value ? "" : value);
-            if (appendAndChar) {
-                buf.append(',');
-            }
+        }
+        buf.append(key).append(":").append(null == value ? "" : value);
+        if (appendAndChar) {
+            buf.append(",");
         }
     }
 }
