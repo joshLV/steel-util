@@ -7,6 +7,8 @@ package com.gw.steel.steel.util.common;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 
  * @author log.yin
@@ -14,15 +16,32 @@ import java.util.Map;
  */
 public class Md5ParamsGenerator {
     /**
-     * 
      * key1value1key2value2key3value3...
+     * only append the key-value is not blank
      * @param map
      * @return
      */
     public static String generateMd5Params(Map<String, String> map) {
+        return generateMd5Params(map, false);
+    }
+
+    /**
+     * key1value1key2value2key3value3...
+     * 
+     * @param map
+     * @param containsEmptyString: if or not the value is blank, also append the key and value
+     * @return
+     */
+    public static String generateMd5Params(Map<String, String> map, boolean containsEmptyString) {
         StringBuilder signString = new StringBuilder();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            signString.append(entry.getKey()).append(entry.getValue());
+            if (StringUtils.isNotBlank(entry.getValue())) {
+                signString.append(entry.getKey()).append(entry.getValue());
+                continue;
+            }
+            if (containsEmptyString) {
+                signString.append(entry.getKey()).append("");
+            }
         }
         return signString.toString();
     }
@@ -31,16 +50,14 @@ public class Md5ParamsGenerator {
      * key1=value1&key2=value2&key3=value3...
      * 
      * @param map
-     * @param keyLable
+     * @param keyLable: key-name
      * @return
      */
-    public static String generateHttpGetParams(Map<String, String> map, String keyLable) {
+    public static String generateHttpGetParams(Map<String, String> map) {
         StringBuilder requstParams = new StringBuilder();
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            if (keyLable != null && !keyLable.equals(entry.getKey())) {
-                requstParams.append(entry.getKey()).append("=").append(entry.getValue())
-                    .append("&");
-            }
+            requstParams.append(entry.getKey()).append("=")
+                .append(entry.getValue() == null ? "" : entry.getValue()).append("&");
         }
         return requstParams.toString().substring(0, requstParams.toString().length() - 1);
     }
