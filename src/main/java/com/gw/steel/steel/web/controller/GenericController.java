@@ -22,17 +22,14 @@ import com.gw.steel.steel.web.util.MD5SignUtil;
  * @author log.yin
  * @version $Id: GenericController.java, v 0.1 2015年2月9日 上午10:24:46 log.yin Exp $
  */
-public abstract class GenericController<Req extends BaseRequest, Resp extends BaseResponse>
-                                                                                            implements
-                                                                                            BaseController<Req, Resp> {
+public abstract class GenericController<Req extends BaseRequest, Resp extends BaseResponse> {
     protected abstract Resp execute(Req req);
-
+    
     protected abstract Resp handleCommonRequestParams(Req req);
 
     public abstract Map<String, String> getExtendsDataMap(Req req);
 
-    @Override
-    public Resp wrapper(Req req) {
+    public Resp invoke(Req req) {
         //first call handleInvalidRequest method, to get subclass of resp, it's convienent to set resp value
         Resp resp = handleCommonRequestParams(req);
         Map<String, String> extendsDataMap = getExtendsDataMap(req);
@@ -45,8 +42,7 @@ public abstract class GenericController<Req extends BaseRequest, Resp extends Ba
 
         return resp;
     }
-
-    @Override
+    
     public boolean handleRequest(Req req, Resp resp, Map<String, String> extendsDataMap) {
         String secretKey = extendsDataMap.get(BaseConstants.KEY);
         //check clientNo & secretKey together
@@ -60,7 +56,7 @@ public abstract class GenericController<Req extends BaseRequest, Resp extends Ba
         }
 
         if (StringUtils.isBlank(req.getVersion())
-            || !BaseConstants.VERSION.equals(req.getVersion().trim())) {
+            || !extendsDataMap.get(BaseConstants.SUPPORT_VERSION_KEY).equals(req.getVersion().trim())) {
             resp.setCode(BaseCodeConstants.INVALID_PARAM);
             resp.setMessage(MessageFormat.format(
                 CodeResourcesUtil.getProperty(BaseCodeConstants.INVALID_PARAM), "接口版本号不支持"));
@@ -68,7 +64,7 @@ public abstract class GenericController<Req extends BaseRequest, Resp extends Ba
         }
 
         if (StringUtils.isBlank(req.getInputCharset())
-            || !BaseConstants.INPUT_CHARSET.equals(req.getInputCharset().trim())) {
+            || !extendsDataMap.get(BaseConstants.SUPPORT_INPUT_CHARSET_KEY).equals(req.getInputCharset().trim())) {
             resp.setCode(BaseCodeConstants.INVALID_PARAM);
             resp.setMessage(MessageFormat.format(
                 CodeResourcesUtil.getProperty(BaseCodeConstants.INVALID_PARAM), "字符编码不支持"));
@@ -76,7 +72,7 @@ public abstract class GenericController<Req extends BaseRequest, Resp extends Ba
         }
 
         if (StringUtils.isBlank(req.getSignType())
-            || !BaseConstants.SIGN_TYPE.equals(req.getSignType().trim())) {
+            || !extendsDataMap.get(BaseConstants.SUPPORT_SIGN_TYPE_KEY).equals(req.getSignType().trim())) {
             resp.setCode(BaseCodeConstants.INVALID_PARAM);
             resp.setMessage(MessageFormat.format(
                 CodeResourcesUtil.getProperty(BaseCodeConstants.INVALID_PARAM), "签名类型不支持"));
@@ -86,7 +82,6 @@ public abstract class GenericController<Req extends BaseRequest, Resp extends Ba
         return true;
     }
 
-    @Override
     public void handleResponse(Req req, Resp resp, Map<String, String> extendsDataMap) {
         String secretKey = extendsDataMap.get(BaseConstants.KEY);
         if (StringUtils.isBlank(resp.getCode())) {

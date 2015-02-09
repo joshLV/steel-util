@@ -13,8 +13,12 @@ package com.gw.steel.steel.web.constants;
 public class BaseConstants {
     public final static String KEY           = "key";
 
-    public final static String VERSION       = "1.0";
-    public final static String INPUT_CHARSET = "1";
-    public final static String SIGN_TYPE     = "1";
+    public final static String SUPPORT_VERSION_KEY       = "version";
+    public final static String SUPPORT_INPUT_CHARSET_KEY = "inputCharset";
+    public final static String SUPPORT_SIGN_TYPE_KEY     = "signType";
+    
+    public final static String DEFAULT_VERSION = "1.0";
+    public final static String DEFAULT_INPUT_CHARSET = "1";
+    public final static String DEFAULT_SIGN_TYPE = "1";
 
 }
