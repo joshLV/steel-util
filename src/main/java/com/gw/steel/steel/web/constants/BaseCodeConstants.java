@@ -12,7 +12,7 @@ package com.gw.steel.steel.web.constants;
  */
 public class BaseCodeConstants {
     /*
-    00000=受理成功
+    00000=成功(异步：受理成功，同步：交易成功)
 
     00001=错误或者未开通的客户端编号
     00002=验签不通过

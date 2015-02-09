@@ -16,7 +16,6 @@ import com.gw.steel.steel.web.controller.dto.BaseResponse;
  * @version $Id: BaseController.java, v 0.1 2015年2月9日 下午2:05:00 log.yin Exp $
  */
 public interface BaseController<Req extends BaseRequest, Resp extends BaseResponse> {
-    public final static String KEY = "key";
 
     public Resp wrapper(Req req);
 

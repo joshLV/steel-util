@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.gw.steel.steel.web.constants.BaseConstants;
 import com.gw.steel.steel.web.controller.dto.BaseRequest;
 import com.gw.steel.steel.web.controller.dto.Signaturable;
 
@@ -26,7 +27,7 @@ public final class MD5SignUtil {
         String signatureBody = buildParamSignatureBody(signaturable.getSignatureParmMap());
         StringBuffer buf = new StringBuffer(signatureBody);
         if (!StringUtils.isBlank(secretKey)) {
-            appendSignParameter(buf, "key", secretKey, false);
+            appendSignParameter(buf, BaseConstants.KEY, secretKey, false);
         }
         return buf.toString();
     }

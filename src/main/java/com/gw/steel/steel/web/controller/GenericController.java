@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.gw.steel.steel.util.common.CodeResourcesUtil;
 import com.gw.steel.steel.web.constants.BaseCodeConstants;
+import com.gw.steel.steel.web.constants.BaseConstants;
 import com.gw.steel.steel.web.controller.dto.BaseRequest;
 import com.gw.steel.steel.web.controller.dto.BaseResponse;
 import com.gw.steel.steel.web.util.MD5SignUtil;
@@ -47,7 +48,7 @@ public abstract class GenericController<Req extends BaseRequest, Resp extends Ba
 
     @Override
     public boolean handleRequest(Req req, Resp resp, Map<String, String> extendsDataMap) {
-        String secretKey = extendsDataMap.get(KEY);
+        String secretKey = extendsDataMap.get(BaseConstants.KEY);
         //check clientNo & secretKey together
         if (StringUtils.isBlank(secretKey)) {
             resp.setCode(BaseCodeConstants.INVALID_CLIENTNO);
@@ -58,21 +59,24 @@ public abstract class GenericController<Req extends BaseRequest, Resp extends Ba
             return false;
         }
 
-        if (StringUtils.isBlank(req.getVersion()) || !"1.0".equals(req.getVersion().trim())) {
+        if (StringUtils.isBlank(req.getVersion())
+            || !BaseConstants.VERSION.equals(req.getVersion().trim())) {
             resp.setCode(BaseCodeConstants.INVALID_PARAM);
             resp.setMessage(MessageFormat.format(
                 CodeResourcesUtil.getProperty(BaseCodeConstants.INVALID_PARAM), "接口版本号不支持"));
             return false;
         }
 
-        if (StringUtils.isBlank(req.getInputCharset()) || !"1".equals(req.getInputCharset().trim())) {
+        if (StringUtils.isBlank(req.getInputCharset())
+            || !BaseConstants.INPUT_CHARSET.equals(req.getInputCharset().trim())) {
             resp.setCode(BaseCodeConstants.INVALID_PARAM);
             resp.setMessage(MessageFormat.format(
                 CodeResourcesUtil.getProperty(BaseCodeConstants.INVALID_PARAM), "字符编码不支持"));
             return false;
         }
 
-        if (StringUtils.isBlank(req.getSignType()) || !"1".equals(req.getSignType().trim())) {
+        if (StringUtils.isBlank(req.getSignType())
+            || !BaseConstants.SIGN_TYPE.equals(req.getSignType().trim())) {
             resp.setCode(BaseCodeConstants.INVALID_PARAM);
             resp.setMessage(MessageFormat.format(
                 CodeResourcesUtil.getProperty(BaseCodeConstants.INVALID_PARAM), "签名类型不支持"));
@@ -84,7 +88,7 @@ public abstract class GenericController<Req extends BaseRequest, Resp extends Ba
 
     @Override
     public void handleResponse(Req req, Resp resp, Map<String, String> extendsDataMap) {
-        String secretKey = extendsDataMap.get(KEY);
+        String secretKey = extendsDataMap.get(BaseConstants.KEY);
         if (StringUtils.isBlank(resp.getCode())) {
             resp.setCode(BaseCodeConstants.SUCCESS);
         }
