@@ -1,4 +1,4 @@
-package com.gw.steel.steel.util.security;
+package com.gw.steel.steel.web.util;
 
 import java.util.LinkedHashMap;
 
@@ -7,13 +7,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.gw.steel.steel.web.dto.BaseRequest;
-import com.gw.steel.steel.web.dto.Signaturable;
+import com.gw.steel.steel.web.controller.dto.BaseRequest;
+import com.gw.steel.steel.web.controller.dto.Signaturable;
 
 /**
- *Md5加密：
+ *CRM对前端系统接口提供的Md5加密：
  *格式："paramName":"paramVale","paramName":"paramVale",...,"paramName":"paramVale","keyName":"keyVale"
- *对该格式的字符串转成大写后，进行Md5加密，
+ *对该格式的字符串进行Md5加密，转16进制，并转成大写
  * 
  * @author log.yin
  * @version $Id: MD5SignUtil.java, v 0.1 2015年2月6日 下午1:15:12 log.yin Exp $

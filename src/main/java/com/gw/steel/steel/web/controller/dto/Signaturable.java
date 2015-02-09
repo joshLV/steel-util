@@ -1,4 +1,4 @@
-package com.gw.steel.steel.web.dto;
+package com.gw.steel.steel.web.controller.dto;
 
 import java.util.LinkedHashMap;
 
