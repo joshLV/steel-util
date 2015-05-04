@@ -25,11 +25,11 @@ public abstract class BaseResponse implements Serializable, Signaturable {
 
     @JsonIgnore
     @Override
-    public LinkedHashMap<String, String> getSignatureParmMap() {
+    public LinkedHashMap<String, String> buildSignatureParmMap() {
         LinkedHashMap<String, String> parmMap = new LinkedHashMap<String, String>();
         parmMap.put("signType", signType);
 
-        LinkedHashMap<String, String> signatureParamMap = getBizSignatureParamMap();
+        LinkedHashMap<String, String> signatureParamMap = buildBizSignatureParamMap();
         if (signatureParamMap != null) {
             parmMap.putAll(signatureParamMap);
         }
@@ -41,7 +41,7 @@ public abstract class BaseResponse implements Serializable, Signaturable {
      * 
      * @return
      */
-    protected abstract LinkedHashMap<String, String> getBizSignatureParamMap();
+    protected abstract LinkedHashMap<String, String> buildBizSignatureParamMap();
 
     public String getCode() {
         return code;

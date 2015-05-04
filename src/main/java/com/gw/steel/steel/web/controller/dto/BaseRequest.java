@@ -29,14 +29,14 @@ public abstract class BaseRequest implements Serializable, Signaturable {
      */
     @JsonIgnore
     @Override
-    public LinkedHashMap<String, String> getSignatureParmMap() {
+    public LinkedHashMap<String, String> buildSignatureParmMap() {
         LinkedHashMap<String, String> parmMap = new LinkedHashMap<String, String>();
         parmMap.put("version", version);
         parmMap.put("inputCharset", inputCharset);
         parmMap.put("signType", signType);
         parmMap.put("clientNo", clientNo);
        
-        LinkedHashMap<String, String> signatureParamMap = getBizSignatureParamMap();
+        LinkedHashMap<String, String> signatureParamMap = buildBizSignatureParamMap();
         if (signatureParamMap != null) {
             parmMap.putAll(signatureParamMap);
         }
@@ -48,7 +48,7 @@ public abstract class BaseRequest implements Serializable, Signaturable {
      * 
      * @return
      */
-    protected abstract LinkedHashMap<String, String> getBizSignatureParamMap();
+    protected abstract LinkedHashMap<String, String> buildBizSignatureParamMap();
 
     public String getVersion() {
         return version;

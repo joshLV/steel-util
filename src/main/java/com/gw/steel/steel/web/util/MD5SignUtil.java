@@ -24,7 +24,7 @@ public final class MD5SignUtil {
     private static final Log logger = LogFactory.getLog(MD5SignUtil.class);
 
     public static String buildSignBody(Signaturable signaturable, String secretKey) {
-        String signatureBody = buildParamSignatureBody(signaturable.getSignatureParmMap());
+        String signatureBody = buildParamSignatureBody(signaturable.buildSignatureParmMap());
         StringBuffer buf = new StringBuffer(signatureBody);
         if (!StringUtils.isBlank(secretKey)) {
             appendSignParameter(buf, BaseConstants.KEY, secretKey, false);

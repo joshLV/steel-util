@@ -10,5 +10,5 @@ import java.util.LinkedHashMap;
  */
 public interface Signaturable {
 	
-	public LinkedHashMap<String, String> getSignatureParmMap();
+	public LinkedHashMap<String, String> buildSignatureParmMap();
 }
